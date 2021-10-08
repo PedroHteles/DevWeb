@@ -1,0 +1,24 @@
+
+{% extends 'navbar.html' %}
+
+{% block title %}  home {% endblock %}
+
+{% block content %}
+{{ msg }}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h2>Home page</h2>  
+        {% if session['name'] %}
+        <p>Welcome {{ session['name'] }}</p>
+        {% else %}
+        <p>Not login</p>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+   
