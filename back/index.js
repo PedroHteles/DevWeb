@@ -1,77 +1,70 @@
-const express = require("express");
-const ep = express();
-const dotenv = require('dotenv')
-const connection = require("./banco/banco");
-const User = require("./banco/users");
+
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const app = express();
+const cors = require('cors');
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
+const connection = require("./banco/banco");
 connection.authenticate().then(() => {console.log("conectado ao mysql")}).catch((erro) =>{ console.log(erro)})
-dotenv.config({path: './.env'});
-ep.set('view engine', 'ejs');
-ep.use(express.static('public'));
-ep.use(express.urlencoded({extended: false}));
-ep.use(express.json());
+const User = require("./banco/users");
 
-ep.post("/auth/register",  async (req, res) => {
-    const {user, password, passwordConfirm} = req.body
-    const userWithEmail = await User.findOne({ where: {user}  }).catch((err) =>{console.log(err);});
 
-    if(userWithEmail){ 
-        return res.json({ message: "Email ou usuiario ja existe!"})
-    }
+app.use(express.json());
+app.use(cookieParser());
 
-    if (password == passwordConfirm){
-        let senha = await bcrypt.hash(password, 8);
-        const newUser = new User({user,senha});
-        
-        const savedUser = await newUser.save().catch((err) =>{
-            console.log(err);
-            res.json({ error : "nao foi"});
-        })
-        
-        if(savedUser){
-            const userid = savedUser.dataValues.user_id
-            const tokenjwt = jwt.sign({token: userid}, 'secret', { expiresIn: '1h' });
-            User.update({token: tokenjwt},{where: {user_id:savedUser.dataValues.user_id}});
-            console.log(savedUser.dataValues.user_id,tokenjwt)   ;
-            res.json({message: "foi"});
-        } 
-    }else{
-        res.json({message: "Senhas erradas!"}),401 
-    }
-})
 
-ep.post("/login",  async (req, res) => {
-    const {user} = req.body
+const middlewareValidarJWT = (req, res, next) => {
+    const jwt = req.cookies.token
+    console.log(jwt)
+    const chavePrivada = 'secret';
+    const jwtService = require("jsonwebtoken");
+    jwtService.verify(jwt, chavePrivada, (err, userInfo) => {
+        if (err) {
+            res.status(403).end();
+            return;
+        }
+        req.userInfo = userInfo;
+        next();
+    });
+};
 
+app.post('/login', async(req, res) => {
+    const {user,passwd} = req.body
     const userWithEmail = await User.findOne({ where:{user}}).catch((err) =>{console.log(err) });
-    
-    if(!userWithEmail){ return res.json({ message: "Email ou usuiario ja existe!"}) }
 
     if (userWithEmail) {
-        const password = await bcrypt.compare(req.body.password, userWithEmail.senha);
+        const password = await bcrypt.compare(passwd, userWithEmail.senha);
         if(password === true){
             const users = await User.findOne({where:{user}}).catch((err) =>{console.log(err) });
             const userid = users.dataValues.user_id
-            const tokenjwt = jwt.sign({token: userid},'secret',{expiresIn:'1h'});
+            const tokenjwt = jwt.sign({user_id: userid},'secret',{expiresIn:'15s'});
             User.update({token: tokenjwt},{where: {user_id:userid}})
-            res.json({ token: tokenjwt})
-        }
-        else{
-            res.json({message:"Credencias incorretas"}),401
+            res
+                .status(202)
+                .cookie('token', tokenjwt, {
+                    sameSite: 'strict',
+                    path: '/',
+                    expires: new Date(new Date().getTime() + 15000),
+                    httpOnly: true,
+                }).send(users.dataValues)
+        }else{
+            res
+                .status(401)
+                .clearCookie("token").send('users.dataValues')
         }
     } 
-})
 
-ep.listen(8080 , () => {console.log('servidor aqui na porta http://127.0.0.1:8080/')});
+});
+app.get(
+    "/user",
+    middlewareValidarJWT,
+    (req, res) => {
+        console.log(req.userInfo)
+        res.json(req.userInfo);
+    }
+);
 
-
-// console.log(users.dataValues.id)
-// try {
-//     const token = 'hBFyk1hqQLxO3n3iz50Ivlh_5u1HrB_tCWbDdTaQo'
-//     var decoded = jwt.verify(token, 'secret');
-//     console.log(decoded) 
-// } catch (error) {
-//     console.log('token invalido')
-// }
+app.listen(8080);
