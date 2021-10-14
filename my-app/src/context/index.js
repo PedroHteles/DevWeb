@@ -13,10 +13,25 @@ export default function IndexProvider({ children }) {
         } catch (e) {
             console.log(e.response?.status)
         }
-}
+    }
+
+
+    const enviaFormNewProduto = async(dadosForm) =>{
+        try {
+           const res = await api.post('/novoproduto',dadosForm,{withCredentials: true})
+           setUser(res.data)
+        } catch (e) {
+            console.log(e.response?.status)
+        }
+    }
+    
+
+
+
+
     return (
         <IndexContext.Provider
-          value={{usuario,enviaFormLogin}}
+          value={{usuario,enviaFormLogin,enviaFormNewProduto}}
         >{children}
         </IndexContext.Provider>
     );
