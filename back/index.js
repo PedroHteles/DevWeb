@@ -22,7 +22,10 @@ const middlewareValidarJWT = (req, res, next) => {
     const jwtService = require("jsonwebtoken");
     jwtService.verify(jwt, chavePrivada, (err, userInfo) => {
         if (err) {
-            res.status(403).end();
+            res
+                .status(403)
+                .clearCookie("token")
+                .end();
             return;
         }
         req.userInfo = userInfo;
@@ -39,14 +42,14 @@ app.post('/login', async(req, res) => {
         if(password === true){
             const users = await User.findOne({where:{user}}).catch((err) =>{console.log(err) });
             const userid = users.dataValues.user_id
-            const tokenjwt = jwt.sign({user_id: userid},'secret',{expiresIn:'15s'});
+            const tokenjwt = jwt.sign({user_id: userid},'secret',{expiresIn:'1h'});
             User.update({token: tokenjwt},{where:{user_id:userid}})
             res
                 .status(202)
                 .cookie('token', tokenjwt, {
                     sameSite: 'strict',
                     path: '/',
-                    expires: new Date(new Date().getTime() + 15000),
+                    expires: new Date(new Date().getTime() + 3600000),
                     httpOnly: true,
                 }).send(users.dataValues)
         }else{
@@ -59,22 +62,20 @@ app.post('/login', async(req, res) => {
 });
 
 
-app.post("/novoproduto",  async (req, res) => {
+app.post("/novoproduto",middlewareValidarJWT,  async (req, res) => {
     const {nomeProduto,precoProduto,descricaoProduto} = req.body
-    const pesquisaProduto = await User.findOne({ where: {nomeProduto}  }).catch((err) =>{console.log(err);});
+    const pesquisaProduto = await User.findOne({where:{nomeProduto}}).catch((err) =>{console.log(err);});
 
     if(pesquisaProduto){ 
-        return res.json({ message: "Produto ja existe!"})
+        return res.json({message:"Produto ja existe!"})
     }
 
-
-    const newProduto = new Produto({nomeProduto,precoProduto,descricaoProduto});
-        
+    const newProduto = new Produto({nomeProduto,precoProduto,descricaoProduto}); 
     const savedProduto = await newProduto.save().catch((err) =>{
         console.log(err);
         res.json({ error : "nao foi"});
     })
-        
+ 
     if(savedProduto){
         res.json({message: "foi"});
     } 
@@ -83,17 +84,12 @@ app.post("/novoproduto",  async (req, res) => {
 
 
 
-
-
-
-
-
 app.get(
     "/produtos",
     middlewareValidarJWT,
-    (req, res) => {
-        console.log(req.userInfo)
-        res.json(req.userInfo);
+    async (req, res) => {
+        const produtos = await Produto.findAll();
+        res.json(produtos);
     }
 );
 

@@ -15,7 +15,7 @@ function Novoproduto() {
         const dados = {nomeProduto,precoProduto,descricaoProduto}
         enviaFormNewProduto(dados)}}>
             <input type='text' required value={nomeProduto} onChange={(e) => setNomeProduto(e.target.value)}></input>
-            <input type='text' required value={precoProduto} onChange={(e) => setPrecoProDuto(e.target.value)}></input>
+            <input type='number' required value={precoProduto} onChange={(e) => setPrecoProDuto(e.target.value)}></input>
             <input type='text' required value={descricaoProduto} onChange={(e) => setDescricaoProduto(e.target.value)}></input>
             <input type='submit'></input>
             <h1>a</h1>

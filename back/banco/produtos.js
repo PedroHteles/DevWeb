@@ -13,7 +13,7 @@ const produtos = conection.define('produtos',{
         allowNull: false
     },
     precoProduto:{
-        type: Sequelize.STRING,
+        type: Sequelize.DECIMAL,
         allowNull: false
     },
     descricaoProduto:{

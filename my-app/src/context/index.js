@@ -15,20 +15,14 @@ export default function IndexProvider({ children }) {
         }
     }
 
-
     const enviaFormNewProduto = async(dadosForm) =>{
         try {
            const res = await api.post('/novoproduto',dadosForm,{withCredentials: true})
-           setUser(res.data)
         } catch (e) {
             console.log(e.response?.status)
         }
     }
     
-
-
-
-
     return (
         <IndexContext.Provider
           value={{usuario,enviaFormLogin,enviaFormNewProduto}}
