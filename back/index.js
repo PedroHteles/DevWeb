@@ -64,18 +64,15 @@ app.post('/login', async(req, res) => {
 
 app.post("/novoproduto",middlewareValidarJWT,  async (req, res) => {
     const {nomeProduto,precoProduto,descricaoProduto} = req.body
-    const pesquisaProduto = await User.findOne({where:{nomeProduto}}).catch((err) =>{console.log(err);});
-
+    const pesquisaProduto = await Produto.findOne({where:{nomeProduto}}).catch((err) =>{console.log(err);});
     if(pesquisaProduto){ 
         return res.json({message:"Produto ja existe!"})
     }
-
     const newProduto = new Produto({nomeProduto,precoProduto,descricaoProduto}); 
     const savedProduto = await newProduto.save().catch((err) =>{
         console.log(err);
         res.json({ error : "nao foi"});
     })
- 
     if(savedProduto){
         res.json({message: "foi"});
     } 
@@ -84,10 +81,7 @@ app.post("/novoproduto",middlewareValidarJWT,  async (req, res) => {
 
 
 
-app.get(
-    "/produtos",
-    middlewareValidarJWT,
-    async (req, res) => {
+app.get("/produtos",async (req, res) => {
         const produtos = await Produto.findAll();
         res.json(produtos);
     }

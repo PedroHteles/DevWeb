@@ -4,6 +4,12 @@ export const IndexContext = createContext();
 
 export default function IndexProvider({ children }) {
     const [ usuario, setUser] = React.useState([]);
+    const [ produtos, setProdutos] = React.useState([]);
+
+    React.useEffect(async() =>{
+        const res = await api.get('/produtos')
+        setProdutos(res.data)
+    },[])
 
 
     const enviaFormLogin = async(dadosForm) =>{
@@ -25,7 +31,7 @@ export default function IndexProvider({ children }) {
     
     return (
         <IndexContext.Provider
-          value={{usuario,enviaFormLogin,enviaFormNewProduto}}
+          value={{usuario,enviaFormLogin,enviaFormNewProduto,produtos}}
         >{children}
         </IndexContext.Provider>
     );

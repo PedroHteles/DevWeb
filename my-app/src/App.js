@@ -1,34 +1,46 @@
 import React from 'react';
 import Pagelogin from './pages/login'
 import Novoproduto from './pages/novoProduto'
-import api from './services/api'
+import FormControl from '@material-ui/core/FormControl';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+
+import {IndexContext} from './context/index'
+import './index.css'
 function App() {
-  const [ teste, setTeste] = React.useState([]);
+  // const[ pesquisa , setPesquise] = React.useState([]);
+  const {produtos} = React.useContext(IndexContext)
+
+
+  console.log(produtos)
 
 	return (
     <>
+    <div className="header">
+      <a href="#">HOME</a>
+      <a href="#">ABOUT</a>
+      <a href="#">JOIN</a>
+      <a href="#">LOGIN</a>
+    </div>
       <Pagelogin/>
       <Novoproduto/>
-      <button onClick={async(e) => {
-        try {
-        const res =  await api.get('/produtos',{withCredentials: true})
-        setTeste(res.data)
-        } catch (e) {
-          console.log(e)
-        }
-        }}>Caregar produtos</button>
-        {teste?.map((e) =>{
-          console.log(e)
-          return(
-            <div key={e.produtoId}>
-              <h1>{e.nomeProduto}</h1>
-              <h1>{e.precoProduto}</h1>
-              <h1>{e.descricaoProduto}</h1>
-            </div>
-          )
-          
-        })}
-
+        <div className="teste">
+          {produtos?.map((e) =>{
+            console.log(e)
+            return(
+              <div key={e.produtoId} className='teste1'>
+                <h1>{e.nomeProduto}</h1>
+                <h1>{e.descricaoProduto}</h1>
+                <h1 className="preco">{e.precoProduto}</h1>
+              </div>
+            )})}
+        </div>
+        <div className="footer"> 
+          <a href="#">HOME</a>
+          <a href="#">ABOUT</a>
+          <a href="#">JOIN</a>
+          <a href="#">LOGIN</a>
+        </div>
     </>
 	);
 }
