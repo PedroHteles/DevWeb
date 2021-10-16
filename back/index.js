@@ -33,6 +33,39 @@ const middlewareValidarJWT = (req, res, next) => {
     });
 };
 
+
+app.post("/register",  async (req, res) => {
+    const {user,passwd,passwd1} = req.body
+    const userWithEmail = await User.findOne({ where: {user}  }).catch((err) =>{console.log(err);});
+
+    if(userWithEmail){ 
+        console.log('teste')
+        return res
+        .status(401)
+        .json({ message: "Email ou usuiario ja existe!"})
+    }
+
+    if (passwd == passwd1){
+        let senha = await bcrypt.hash(passwd, 8);
+        const newUser = new User({user,senha});
+        
+        const savedUser = await newUser.save().catch((err) =>{
+            console.log(err);
+            res.json({ error : "nao foi"});
+        })
+        
+        if(savedUser){
+            const userid = savedUser.dataValues.user_id
+            const tokenjwt = jwt.sign({token: userid}, 'secret', { expiresIn: '1h' });
+            User.update({token: tokenjwt},{where: {user_id:savedUser.dataValues.user_id}});
+            console.log(savedUser.dataValues.user_id,tokenjwt)   ;
+            res.json({message: "foi"});
+        } 
+    }else{
+        res.json({message: "Senhas erradas!"}),401 
+    }
+})
+
 app.post('/login', async(req, res) => {
     const {user,passwd} = req.body
     const userWithEmail = await User.findOne({where:{user}}).catch((err) =>{console.log(err) });

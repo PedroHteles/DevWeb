@@ -4,10 +4,14 @@ import './index.css';
 import App from './App';
 import IndexProvider from './context/index'
 
+
+
+
+
 ReactDOM.render(
   <React.StrictMode>
     <IndexProvider>
-      <App />
+      <App/>
     </IndexProvider>
 
   </React.StrictMode>,

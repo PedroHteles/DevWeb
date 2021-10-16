@@ -21,6 +21,19 @@ export default function IndexProvider({ children }) {
         }
     }
 
+    
+    const enviaFormRegister = async(dadosForm) =>{
+        try {
+           const res = await api.post('/register',dadosForm,{withCredentials: true})
+           setUser(res.data)
+        } catch (e) {
+            if(e.response?.status == 401){
+                alert('Usuario ja Registrado!')
+            }
+        }
+    }
+
+
     const enviaFormNewProduto = async(dadosForm) =>{
         try {
            const res = await api.post('/novoproduto',dadosForm,{withCredentials: true})
@@ -31,7 +44,7 @@ export default function IndexProvider({ children }) {
     
     return (
         <IndexContext.Provider
-          value={{usuario,enviaFormLogin,enviaFormNewProduto,produtos}}
+          value={{usuario,enviaFormLogin,enviaFormNewProduto,enviaFormRegister,produtos}}
         >{children}
         </IndexContext.Provider>
     );
