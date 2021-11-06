@@ -1,0 +1,66 @@
+.teste {
+    width: 45%;
+    border: solid 0.7px #dcdcdc;
+    box-shadow: 2px 2px 5px #aaaaaa;
+    border-radius: 0.6rem !important;
+    height: 40rem !important;
+    box-sizing: border-box;
+    padding-bottom:1rem;
+    margin-right: 8rem;
+}
+
+.dados {
+    margin-bottom: 2rem;
+}
+
+.titles {
+    margin-bottom: 1rem;
+    font-size: 35px;
+
+}
+
+.titles2 {
+    font-size: 20px;
+    margin-bottom: 3rem;
+}
+
+.titles3 {
+    font-size: 20px;
+    margin-bottom: 2rem;
+    margin-left: 1rem;
+}
+
+.titles4 {
+    font-size: 20px;
+    margin-bottom: 2rem;
+}
+
+.select {
+    margin-bottom: 2rem;
+}
+
+.espaco {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.enviarPedido {
+    background-color: #449944;
+    color: white;
+    width: 100%;
+    padding: .5rem 0;
+    margin: auto auto 0!important;
+    margin-top: 6rem!important;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 2px rgba(170, 170, 170, 0.5);
+    border: none;
+    border-radius: 8px;
+}
+
+.nome {
+    font-size: 20px;
+}

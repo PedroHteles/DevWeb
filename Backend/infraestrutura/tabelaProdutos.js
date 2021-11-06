@@ -2,49 +2,40 @@ const { TEXT } = require("sequelize");
 const Sequelize = require("sequelize");
 const conection = require("../infraestrutura/conexao");
 
-const users = conection.define('users',{
+const produtos = conection.define('produtos',{
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    nome: {
+    nomeProduto: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    cpf: {
+    valor: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    rua: {
+    urlImg: {
+        type: Sequelize.STRING(15000),
+        allowNull: false
+    },
+    descricao: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    bairro: {
+    quantidade: {
+        type: Sequelize.FLOAT,
+        allowNull: false
+    },
+    categoria: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    numero: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    senha: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    token: {
-        type: Sequelize.STRING,
-        allowNull: true
-    },
-    admin: {
-        type: Sequelize.INTEGER,
-        allowNull: true
-    }
-    
 });
 
-users.sync({force: false}).then(() =>{
-    console.log("Tabela criada!");
+produtos.sync({force: false}).then(() =>{
+    console.log("Tabela produtos criada!");
 }); 
 
-module.exports = users
+module.exports = produtos

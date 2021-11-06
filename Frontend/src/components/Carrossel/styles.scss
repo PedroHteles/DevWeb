@@ -1,0 +1,50 @@
+.carrosselMarcasContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+
+    & > .arrow {
+        height: fit-content;
+        width: fit-content;
+        padding: 0.3rem;
+        margin: auto 1rem;
+        background: transparent;
+        border: none;
+        border: solid 3px #000000;
+        border-top: none;
+        border-right: none;
+        box-sizing: border-box;
+        cursor: pointer;
+
+        &.left {
+            transform: rotate(45deg);
+        }
+
+        &.right {
+            transform: rotate(225deg);
+        }
+    }
+}
+
+.carrosselMarcas {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    box-shadow: 0px 0px 1px #000000;
+    margin: 1rem 0;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    & > img {
+        height: 78px;
+        width: 130px;
+        margin: auto 5.6rem;
+        object-fit: contain;
+    }
+}

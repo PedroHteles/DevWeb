@@ -1,0 +1,139 @@
+@media only screen and (max-width: 1024px) {
+    .cardDiv {
+        grid-template-columns: auto auto;
+    }
+}
+
+.cardProduto {
+    display: flex;
+    flex-direction: column;
+    width: 16rem;
+    height: 22rem;
+    border: solid 0.7px #dcdcdc;
+    box-shadow: 2px 2px 5px #aaaaaa;
+    border-radius: 0.6rem !important;
+    text-align: center;
+    justify-content: space-between;
+    padding-bottom: 0.5rem;
+
+    & > img {
+        border-radius: 2rem;
+        width: 5rem;
+        height: 5rem;
+        
+    }
+}
+
+.cardCarrinho {
+    display: flex;
+    flex-direction: row;
+    width: 85%;
+    height: 16rem;
+    border: solid 0.7px #dcdcdc;
+    box-shadow: 2px 2px 5px #aaaaaa;
+    border-radius: 0.6rem !important;
+    text-align: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    margin-left: 7rem;
+    
+    & > div{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 15rem;
+    }
+
+    & > div > .cardImg {
+        border-radius: 2rem;
+        height: 15rem;
+        width: 15rem;
+        margin: auto;
+    }
+
+    & > aside{
+        display: flex;
+        width: 60%;
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-around;
+        align-items: flex-start;
+        padding: 1rem 0;
+        box-sizing: border-box;
+        margin-left: 10%;
+
+        & > p{
+            text-align: left;
+            width: 100%;
+        }
+
+        & > .cardB2{
+            align-self: flex-start;
+        }
+    }
+
+}
+
+.cardImg {
+    width: 60%;
+}
+
+.cardImg2 {
+    width: 3rem !important;
+    height: 3rem !important;
+    top: -25px !important;
+    left: 96% !important;
+    position: relative;
+}
+
+.cardB2 {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    width: fit-content;
+    padding: 0!important;
+    align-self: center;
+
+    & > input {
+        min-width: 3rem;
+        width: 3rem;
+        min-height: 2rem;
+        height: 2rem;
+        border: solid 1.5px #777777;
+        border-radius: .5rem;
+        margin: 0 .5rem;
+        outline: none;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 1rem;
+        user-select: none;
+    
+        
+        &::-webkit-inner-spin-button{
+            display: none;
+        }
+    }
+
+    & > button {
+        min-width: 2rem;
+        width: 2rem;
+        min-height: 2rem;
+        height: 2rem;
+        border: solid 1.5px #777777;
+        background-color: white;
+        border-radius: .5rem;
+        font-size: 1rem;
+        box-sizing: border-box;
+        cursor: pointer;
+    
+        &:hover{
+            color: #fff;
+            background-color: #000;
+        }
+    }
+}
+
+a:-webkit-any-link {
+    text-decoration: none;
+    color: black;
+}

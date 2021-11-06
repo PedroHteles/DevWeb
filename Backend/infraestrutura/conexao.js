@@ -1,13 +1,10 @@
-const mysql = require('mysql')
+const Sequelize = require('sequelize');
 
-const conexao = mysql.createConnection({
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'root',
-    password: 'password',
-    database: 'comprearcom'
-})
+const connection = new Sequelize('compreArcom','root','password',{
+    host: 'localhost',
+    dialect: 'mysql'
+});
 
-module.exports = conexao
+module.exports = connection;
 
 //roda issaq no mysql se n n roda ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123'; 

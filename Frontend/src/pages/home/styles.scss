@@ -1,0 +1,21 @@
+.container {
+  padding: 40px;
+  background: #419be0;
+}
+
+.main{
+  height: 100%;
+  width: 100%;
+  overflow: overlay;
+  padding: 0;
+}
+
+main div{
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.cardDiv {
+  display: flex;
+  width: 100%;
+}

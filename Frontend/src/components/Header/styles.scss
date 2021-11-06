@@ -1,0 +1,104 @@
+.header {
+    background-color: #009700;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .carrinho {
+    color: white!important;
+  }
+  
+  .login {
+    color: white!important;
+  }
+
+  .search {
+    width: 20%;
+  }
+  
+  .categorias {
+    background-color: #009700;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+  }
+  
+  .innerCategories{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin-top: 0.4rem;
+    padding: 0.6rem;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px 10px 0 0;
+    background-color: #00c030;
+   
+  }
+  
+  .buttons {
+    background-color: transparent;
+    width: fit-content;
+    padding: .2rem;
+    height: fit-content;
+    color: white;
+    cursor: pointer;
+    border: none;
+    box-sizing: border-box;
+    &:hover{
+      border-bottom: solid 3px white;
+      padding-bottom: .2px;
+      transition: all 100ms;
+    }
+  
+    &:not(:hover){
+      transition: all 200ms;
+    }
+  }
+  
+  .navbar {
+      flex-grow: 1;
+      margin-bottom: 2%;
+  }
+  
+  
+  .menuButton {
+    margin-right: 10%;
+    display: none;
+  }
+  
+  .title {
+    width: auto;
+    min-width: auto;
+    height: 3rem;
+    min-height: 3rem;
+    cursor: pointer;
+  }
+  
+  .input{
+    padding: 2px 0px 2px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    opacity: 55%;
+    height: 2.5rem;
+  }
+  
+  .icon-button {
+    padding: 10%;
+  }
+  
+  .divider {
+    height: 28%;
+    margin: 4%;
+  }
+  
+  main {
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+  }
