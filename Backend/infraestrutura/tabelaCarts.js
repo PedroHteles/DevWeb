@@ -2,8 +2,8 @@ const Sequelize = require("sequelize");
 const conection = require("../infraestrutura/conexao");
 
 const carrinho = conection.define('carrinho',{  
-    id_usuario: {
-        type: Sequelize.INTEGER
+    eMail: {
+        type: Sequelize.STRING
          
     },
     id_produto: {
@@ -11,7 +11,7 @@ const carrinho = conection.define('carrinho',{
         allowNull: false
     },
     quantidade: {
-        type: Sequelize.FLOAT, 
+        type: Sequelize.INTEGER, 
         allowNull: false
     },
 });
