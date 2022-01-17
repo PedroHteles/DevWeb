@@ -10,7 +10,7 @@ import {IndexContext} from '../../context/index'
 
 const Carrinho = () => {
 
-  const { carrinho,product } = React.useContext(IndexContext);
+  const { carrinho } = React.useContext(IndexContext);
   // const [cart, setCart] = React.useState([]);
 
   // React.useEffect(() =>{

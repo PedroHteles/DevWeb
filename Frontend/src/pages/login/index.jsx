@@ -7,20 +7,16 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import {IndexContext} from '../../context/index'
 
-
 function Login() {
   let history = useHistory();
-  const  [ senha, setSenha] = useState('');
-  const  [cpf , setCpf]  = useState('');
-
-  const { logado, handleLogin } = React.useContext(IndexContext);
+  const  [ passwd, setPasswd] = useState('');
+  const  [eMail , setEmail]  = useState('');
+  const {  handleLogin } = React.useContext(IndexContext);
   
-
   const enviaForm = async (event) => {
     event.preventDefault();
-    const dados = ({cpf,senha})
+    const dados = ({eMail,passwd})
     handleLogin(dados)
-
   }
 
   return (
@@ -29,8 +25,8 @@ function Login() {
       <div className="login_main">
         <h1 className="login_title"> Compre Arcom </h1>
         <form className="loginForm" onSubmit={enviaForm}>
-          <input name="usuario" className="loginInput" onChange={(e) => setCpf(e.target.value) } placeholder="CPF"></input>
-          <input name="senha" className="loginInput" onChange={(e) =>  setSenha(e.target.value)} type="password" placeholder="Senha"></input>
+          <input name="usuario" className="loginInput" onChange={(e) => setEmail(e.target.value) } placeholder="Email"></input>
+          <input name="senha" className="loginInput" onChange={(e) =>  setPasswd(e.target.value)} type="password" placeholder="Senha"></input>
           <button type="submit" variant="contained" color="success" className="login_entrar">Entrar</button>
           <Link to="/register" className="cadastro">
             Cadastre-se

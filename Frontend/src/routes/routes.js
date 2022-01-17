@@ -6,14 +6,15 @@ import Cadastro from '../pages/register';
 import Login from '../pages/login';
 import AdmProdutos from '../pages/admin/produtos';
 import ProdutoMain from '../pages/main produto';
-import PrivateRoute from "../components/privateRoute/PrivateRoute";
+// import PrivateRoute from "./privateRoute/PrivateRoute";
 
 const Routes = () => {
    return(
        <BrowserRouter>
         <Switch>
            <Route component = { Home }  path="/" exact />
-           <PrivateRoute component = { Carrinho } path='/carrinho' />
+           {/* <PrivateRoute component = { Carrinho } path='/carrinho' /> */}
+           <Route component = { Carrinho } path='/carrinho' /> 
            <Route component = { Cadastro } path ='/register' />
            <Route component = { Login } path='/login' />
            <Route component = { AdmProdutos } path='/addproduto' />

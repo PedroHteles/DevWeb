@@ -9,7 +9,7 @@ function Card(props) {
     let history = useHistory();
 
     const {handleCarrinho, user} = React.useContext(IndexContext);
-    console.log(props?.produto);
+
     return (
         <>
             {props?.produto?.map((e, index) =>{

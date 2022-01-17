@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize');
 
-const connection = new Sequelize('compreArcom','root','password',{
+const connection = new Sequelize('SitezimAc','root','password',{
     host: 'localhost',
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging:false
 });
 
 module.exports = connection;

@@ -9,7 +9,7 @@ function ProdutoMain(props) {
       <>
       <Header/>
         <div className="cardCarrinho3">
-        <img className="produtoImg" src={props?.location?.state?.msg.urlImg}></img>
+        <img className="produtoImg" src={props?.location?.state?.msg.urlImg} alt="imagen produto"></img>
         <div className="fixed">
           <h2 className="title"> {props?.location?.state?.msg.nomeProduto} </h2>
           <h2 className="detalhes"> {props?.location?.state?.msg.descricao} </h2>

@@ -1,6 +1,6 @@
 const { TEXT } = require("sequelize");
 const Sequelize = require("sequelize");
-const conection = require("../infraestrutura/conexao");
+const conection = require("./conexao");
 
 const produtos = conection.define('produtos',{
     id: {

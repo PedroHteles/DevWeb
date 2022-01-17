@@ -1,6 +1,6 @@
 const { TEXT } = require("sequelize");
 const Sequelize = require("sequelize");
-const conection = require("../infraestrutura/conexao");
+const conection = require("./conexao");
 
 const users = conection.define('users',{
     id: {
@@ -10,21 +10,9 @@ const users = conection.define('users',{
     },
     nome: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
     },
-    cpf: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    rua: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    bairro: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    numero: {
+    eMail: {
         type: Sequelize.STRING,
         allowNull: false
     },
@@ -36,6 +24,10 @@ const users = conection.define('users',{
         type: Sequelize.STRING,
         allowNull: true
     },
+    ultimoAcesso:{
+        type: Sequelize.STRING,
+        allowNull: true
+    },
     admin: {
         type: Sequelize.INTEGER,
         allowNull: true
@@ -44,7 +36,7 @@ const users = conection.define('users',{
 });
 
 users.sync({force: false}).then(() =>{
-    console.log("Tabela criada!");
+    console.log("Tabela users criada!");
 }); 
 
 module.exports = users

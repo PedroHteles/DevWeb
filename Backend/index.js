@@ -1,10 +1,15 @@
 const express = require("express");
 const ep = express();
 const dotenv = require('dotenv')
+
 const connection = require("./infraestrutura/conexao");
+
 const User = require("./infraestrutura/tabelas");
+
 const Produtos = require("./infraestrutura/tabelaProdutos");
+
 const Categorias = require("./infraestrutura/tabelaCategorias");
+
 const Carrinho = require("./infraestrutura/tabelaCart");
 const bcrypt = require('bcrypt');
 const cookieParser = require("cookie-parser");
