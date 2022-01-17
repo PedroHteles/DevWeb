@@ -6,7 +6,7 @@ const carrinho = conection.define('carrinho',{
         type: Sequelize.STRING
          
     },
-    id_produto: {
+    idProduto: {
         type: Sequelize.INTEGER,
         allowNull: false
     },

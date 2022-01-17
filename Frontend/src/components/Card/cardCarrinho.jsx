@@ -13,6 +13,7 @@ function Card(props) {
     return (
         <>
             {props?.produto?.map((e, index) =>{
+                console.log(e)
                 return ( <>
                     {props?.className === "cardProduto" ?
                     <Paper className={props?.className} key={index}>
@@ -29,8 +30,8 @@ function Card(props) {
                                 }
 
                                 if(e.unidade > 0){
-                                    const id_produto = ({id_produto:e.id, metodo:false})
-                                    handleCarrinho(id_produto)
+                                    const produto = ({idProduto:e.id, metodo:false})
+                                    handleCarrinho(produto)
                                 }
                                 }}>-</button>
                             <input id="input" min="0" max={`${e.quantidade}`} value={ e?.unidade ? e?.unidade : 0} />
@@ -39,8 +40,8 @@ function Card(props) {
                                     history.push("/login")
                                 }
                                 if(e.unidade < 20 ){
-                                    const id_produto = ({id_produto:e.id, metodo:true})
-                                    handleCarrinho(id_produto)
+                                    const produto = ({idProduto:e.id, metodo:true})
+                                    handleCarrinho(produto)
 
                                 }
                                 }}>+</button>
@@ -59,8 +60,8 @@ function Card(props) {
                                         history.push("/login")
                                     }
                                     if(e.unidade > 0){
-                                        const id_produto = ({id_produto:e.id, metodo:false})
-                                        handleCarrinho(id_produto)
+                                        const produto = ({idProduto:e.id, metodo:false})
+                                        handleCarrinho(produto)
                                     }
                                     }}>-</button>
                                 <input id="input" min="0" max={`${e.quantidade}`} value={ e?.unidade ? e?.unidade : 0} />
@@ -69,8 +70,8 @@ function Card(props) {
                                         history.push("/login")
                                     }
                                     if(e.unidade < 20 ){
-                                        const id_produto = ({id_produto:e.id, metodo:true})
-                                        handleCarrinho(id_produto)
+                                        const produto = ({idProduto:e.id, metodo:true})
+                                        handleCarrinho(produto)
                                     }
                                     }}>+</button>
 

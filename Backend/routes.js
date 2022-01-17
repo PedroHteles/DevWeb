@@ -120,12 +120,13 @@ router.get("/carrinho", async (req, res) => {
 
 router.post("/addcarrinho", async (req, res) => {
   const eMail = (req.userJWT.eMail)
-  const {id_produto,metodo} = (req.body)
+  const {idProduto,metodo} = (req.body)
+  console.log(idProduto,metodo)
   let quantidade = 1
-  const pesquisaCarrinho = await Carrinho.findOne({ where: {eMail,id_produto} }).catch((err) =>{console.log(err);});
+  const pesquisaCarrinho = await Carrinho.findOne({ where: {eMail,idProduto} }).catch((err) =>{console.log(err);});
   if(!pesquisaCarrinho){
     try {
-      await Carrinho.create({ id_produto, eMail, quantidade});
+      await Carrinho.create({ idProduto, eMail, quantidade});
       const resp = await Carrinho.findAll({ where: {eMail}})
       res.json(resp);
     } catch (error) {
@@ -136,7 +137,7 @@ router.post("/addcarrinho", async (req, res) => {
     if(metodo === true){
       let quantidade  = pesquisaCarrinho.dataValues.quantidade += 1
       try {
-        await Carrinho.update({quantidade},{where: {eMail,id_produto}});
+        await Carrinho.update({quantidade},{where: {eMail,idProduto}});
         const resp = await Carrinho.findAll({ where: {eMail}})
         return res.json(resp);
 
@@ -146,11 +147,11 @@ router.post("/addcarrinho", async (req, res) => {
       let quantidade  = pesquisaCarrinho.dataValues.quantidade -= 1
       try {
         if(quantidade >= 0){
-          await Carrinho.update({quantidade},{where: {eMail,id_produto}});
+          await Carrinho.update({quantidade},{where: {eMail,idProduto}});
           const resp = await Carrinho.findAll({ where: {eMail}})
           return res.json(resp);
         }else{
-          await Carrinho.destroy({where: {eMail,id_produto}});
+          await Carrinho.destroy({where: {eMail,idProduto}});
           const resp = await Carrinho.findAll({ where: {eMail}})
           return res.json(resp);
         }

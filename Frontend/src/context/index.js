@@ -56,7 +56,7 @@ export default function IndexProvider({ children }) {
       const TempProduct = product? [...product] : null
       TempProduct?.map(item2 => {
         carrinho?.map(item => {
-          if(item?.id_produto == item2?.id) {
+          if(item?.idProduto == item2?.id) {
             item2.unidade = item.quantidade
             TempCarrinho.push(item2)
           }
