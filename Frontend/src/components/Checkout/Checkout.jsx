@@ -5,19 +5,15 @@ import { NativeSelect } from '@mui/material';
 import "./styles.scss";
 
 function Checkout() {
-    const { handleLogout, user, admin, setSelect, carrinho} = React.useContext(IndexContext);
-    const [teste ,setTest] = React.useState(0)
-
+    const { user, carrinho} = React.useContext(IndexContext);
     
     
-        let total = 0
-        
-        carrinho.map((e) => {
+    let total = 0
 
-            total += (parseFloat(e.valor) * e.unidade)
-        })
+    carrinho.map((e) => {
+        total += (parseFloat(e.valor) * e.unidade)
+    })
         
-        console.log(total)
     
     return (
     <><Paper className="teste">

@@ -13,7 +13,6 @@ function Card(props) {
     return (
         <>
             {props?.produto?.map((e, index) =>{
-                console.log(e)
                 return ( <>
                     {props?.className === "cardProduto" ?
                     <Paper className={props?.className} key={index}>
