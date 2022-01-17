@@ -57,7 +57,6 @@ router.post("/register",  async (req, res) => {
 
 router.post("/login", async (req, res) => {
     const {eMail,passwd} = (req.body)
-    console.log(eMail,passwd)
 
     const user = await User.findOne({ where: {eMail}  }).catch((err) =>{console.log(err)});
     const password = await bcrypt.compare(passwd, user.senha);
@@ -65,7 +64,6 @@ router.post("/login", async (req, res) => {
     if(user && password){
       const token = jwt.sign({ id: user.dataValues.id, eMail:user.dataValues.eMail ,role:"captain" }, "YOUR_SECRET_KEY", { expiresIn: '1h' });
       User.update({token: token},{where: {id:user.dataValues.id}});
-      console.log('testelogin')
       return res
       .cookie("access_token", token, {
         httpOnly: true,
@@ -76,25 +74,25 @@ router.post("/login", async (req, res) => {
       .json({message: user.nome, email:user.eMail})
     }
   else{
-    return res.status(401).send('Login inválido!')
+    return res.status(401).send('Login inválido!');
   }
  });
 
 router.get('/user', async function(req, res) {
   const eMail = (req.userJWT.eMail)
   const user = await User.findOne({ where: {eMail}  }).catch((err) =>{console.log(err)});
-  res.json({message: user.dataValues.nome, email:user.dataValues.eMail})
+  res.json({message: user.dataValues.nome, email:user.dataValues.eMail});
 });
 
 router.get('/products', async function (req, res) {
-  const produtoCriado = await Produtos.findAll().catch((err) =>{console.log(err);});
+  const produtoCriado = await Produtos.findAll().catch((err) =>{console.log(err)});
   res.json(produtoCriado);
 });
 
 router.post('/criarprod',async (req, res) => {
   const {nomeProduto, valor, urlImg, descricao, quantidade, categoria} = req.body
-  eMail = req.userJWT.eMail
-  const user = await User.findOne({ where: {eMail}  }).catch((err) =>{console.log(err);});
+  const eMail = req.userJWT.eMail
+  const user = await User.findOne({ where: {eMail}  }).catch((err) =>{console.log(err)});
 
   try {
     if (user.dataValues.admin == 1){
@@ -103,13 +101,13 @@ router.post('/criarprod',async (req, res) => {
         await Produtos.create({ nomeProduto, valor, urlImg, descricao, quantidade, categoria});
         return res.status(200).send('Criado ok');
       }else{
-        return res.json({ message: "Este produto ja existe!"})
+        return res.json({ message: "Este produto ja existe!"});
       }
     }else{
-      return res.send(`o usuario ${user.dataValues.eMail} nao possui permissao!`) 
+      return res.send(`o usuario ${user.dataValues.eMail} nao possui permissao!`);
     }
   } catch (error) {
-    console.log('teste')
+    console.log('teste');
   }
 });
 
@@ -131,7 +129,7 @@ router.post("/addcarrinho", async (req, res) => {
       const resp = await Carrinho.findAll({ where: {eMail}})
       res.json(resp);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
   else{
@@ -157,7 +155,7 @@ router.post("/addcarrinho", async (req, res) => {
           return res.json(resp);
         }
       } catch (error) {
-          return res.status(401).send('erro')
+          return res.status(401).send('erro');
       }
     }  
   }  
